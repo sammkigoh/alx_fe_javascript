@@ -20,7 +20,7 @@ const exportButton = document.getElementById('exportButton');
 const categoryFilter = document.getElementById('categoryFilter');
 
 //populate the category filter dropdown 
-function populateCategoryFilter() {
+function populateCategories() {
     const categories = ['all', ...new Set(quotes.map(q => q.category))];
     categoryFilter.innerHTML = categories.map(category => `<option value="${category}">${category}</option>`).join('');
     const lastFilter = localStorage.getItem(lastFilterKey) || 'all';
@@ -66,7 +66,7 @@ if (newQuoteButton) {
 // //save quotes to local storage
 function saveQuotes() {
     localStorage.setItem(quotesKey, JSON.stringify(quotes));
-    populateCategoryFilter();
+    populateCategories();
 }
 
 //adding new quotes on the form 
@@ -124,5 +124,5 @@ if (importFile) {
     importFile.addEventListener('change', importFromJsonFile);
 }
 //initializing the category filter and display the quotes 
-populateCategoryFilter();
+populateCategories();
 });
