@@ -148,7 +148,7 @@ if (importFile) {
 }
 //sync with server
 
-function syncWithServer(newQuote) {
+function syncQuotes(newQuote) {
     fetch(serverUrl, {
         method: 'POST',
         body: JSON.stringify(newQuote),
