@@ -39,5 +39,6 @@ function addQuote() {
         alert("Please enter both a quote and a category.")
     }
 }
-document.querySelector('button[onclick="addQuote()"]').addEventListener('click',addQuote);
+//document.querySelector('button[onclick="addQuote()"]').addEventListener('click',addQuote);
+addQuoteButton.addEventListener('click', addQuote);
 });
