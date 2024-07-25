@@ -160,7 +160,7 @@ function syncWithServer(newQuote) {
 
 //fetch new quotes from server time to time
 
-function fetchNewQuotes() {
+function fetchQuotesFromServer() {
     fetch(serverUrl)
     .then(response => response.json())
     .then(serverQuotes => {
@@ -174,7 +174,7 @@ function fetchNewQuotes() {
     }
 
 // Periodically fetch new quotes from the server
-  setInterval(fetchNewQuotes, 60000); // Fetch every 60 seconds
+  setInterval(fetchQuotesFromServer, 60000); // Fetch every 60 seconds
 //initializing the category filter and display the quotes 
 populateCategories();
 });
