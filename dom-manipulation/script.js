@@ -166,6 +166,8 @@ async function fetchQuotesFromServer() {
         const serverQuotes = await response.json();
         const serverQuoteIds = new Set(serverQuotes.map(q => a.id));
         quotes = quotes.filter(q => !serverQuoteIds.has(q.id)).concat(saveQuotes);
+        console.log('Local data updated with server data');
+        showNotification ('Quotes synced with server!');
     } catch (error) {
         console.error('Error fetching new quotes:', error);
     }
@@ -180,6 +182,16 @@ async function fetchQuotesFromServer() {
     //   })
     //   .catch(error => console.error('Error fetching new quotes:', error));
     }
+    // Show notification
+  function showNotification(message) {
+    if (notification) {
+      notification.textContent = message;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000); // Hide notification after 3 seconds
+    }
+  }
 
 // Periodically fetch new quotes from the server
   setInterval(fetchQuotesFromServer, 60000); // Fetch every 60 seconds
