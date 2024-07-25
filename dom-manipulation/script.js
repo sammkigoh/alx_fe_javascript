@@ -21,9 +21,31 @@ const categoryFilter = document.getElementById('categoryFilter');
 
 //populate the category filter dropdown 
 function populateCategories() {
+    //clear existing options 
+    categoryFilter.innerHTML ='';
+
+    // add default "all" option
+    const allOption = document.createElement('option');
+    allOption.value = 'all';
+    allOption.textContent= 'All Categories';
+    categoryFilter.appendChild(allOption);
+
+    //extract unique categories 
     const categories = ['all', ...new Set(quotes.map(q => q.category))];
-    categoryFilter.innerHTML = categories.map(category => `<option value="${category}">${category}</option>`).join('');
+    //create and append option elements for each category
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+    });
+
+    //retrieve the last selected filter from local storage or default to 'all'
     const lastFilter = localStorage.getItem(lastFilterKey) || 'all';
+    categoryFilter.value = lastFilter;
+    filterQuotes();
+    // categoryFilter.innerHTML = categories.map(category => `<option value="${category}">${category}</option>`).join('');
+    // const lastFilter = localStorage.getItem(lastFilterKey) || 'all';
     categoryFilter.value = lastFilter;
     filterQuotes();
 }
