@@ -12,17 +12,17 @@ const newQuoteButton = document.getElementById('newQuote');
 const newQuoteText = document.getElementById ('newQuoteText');
 const newQuoteCategory = document.getElementById('newQuoteCategory');
 //displaying random quotes 
-function displayRandomQuote(){
+function showRandomQuote(){
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
     quoteDisplay.innerHTML = `"${randomIndex.text}" - ${randomQuote.category}`;
 }
 
 //adding the event listener for the new quote button 
-newQuoteButton.addEventListener('click', displayRandomQuote);
+newQuoteButton.addEventListener('click', showRandomQuote);
 
 //the first quote display
-displayRandomQuote();
+showandomQuote();
 
 //adding new quotes on the form 
 function addQuote() {
