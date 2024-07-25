@@ -32,8 +32,15 @@ function createAddQuoteForm() {
     if (text !== "" && category !== "") {
         const newQuote = {text, category};
         quotes.push(newQuote);
+        //clearing the input fields
         newQuoteText.value ='';
         newQuoteCategory.value ='';
+
+        //creating a new DOM element to display the new quote
+        const newQuoteElement = document.createElement('div');
+        newQuoteElement.innerHTML = `"${newQuote.text}" - ${newQuote.category}`;
+        quoteDisplay.appendChild(newQuoteElement);
+         
         alert("Quote added successfully!");
     } else {
         alert("Please enter both a quote and a category.")
