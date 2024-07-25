@@ -25,7 +25,7 @@ newQuoteButton.addEventListener('click', showRandomQuote);
 showandomQuote();
 
 //adding new quotes on the form 
-function addQuote() {
+function createAddQuoteForm() {
     const text = newQuoteText.value.trim();
     const category = newQuoteCategory.value.trim();
 
@@ -40,5 +40,5 @@ function addQuote() {
     }
 }
 //document.querySelector('button[onclick="addQuote()"]').addEventListener('click',addQuote);
-addQuoteButton.addEventListener('click', addQuote);
+addQuoteButton.addEventListener('click', createAddQuoteForm);
 });
