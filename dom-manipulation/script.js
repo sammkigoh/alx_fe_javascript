@@ -160,17 +160,25 @@ function syncWithServer(newQuote) {
 
 //fetch new quotes from server time to time
 
-function fetchQuotesFromServer() {
-    fetch(serverUrl)
-    .then(response => response.json())
-    .then(serverQuotes => {
-        //resolving conflicts by using server data
-        const serverQuoteIds = new Set(serverQuotes.map(q => q.id));
-        quotes = quotes.filter(q => !serverQuoteIds.has(q.id)).concat(serverQuotes);
-        saveQuotes();
-        console.log('Local data updated with server data');
-      })
-      .catch(error => console.error('Error fetching new quotes:', error));
+async function fetchQuotesFromServer() {
+    try {
+        const response = await fetch (serverUrl);
+        const serverQuotes = await response.json();
+        const serverQuoteIds = new Set(serverQuotes.map(q => a.id));
+        quotes = quotes.filter(q => !serverQuoteIds.has(q.id)).concat(saveQuotes);
+    } catch (error) {
+        console.error('Error fetching new quotes:', error);
+    }
+    // fetch(serverUrl)
+    // .then(response => response.json())
+    // .then(serverQuotes => {
+    //     //resolving conflicts by using server data
+    //     const serverQuoteIds = new Set(serverQuotes.map(q => q.id));
+    //     quotes = quotes.filter(q => !serverQuoteIds.has(q.id)).concat(serverQuotes);
+    //     saveQuotes();
+    //     console.log('Local data updated with server data');
+    //   })
+    //   .catch(error => console.error('Error fetching new quotes:', error));
     }
 
 // Periodically fetch new quotes from the server
