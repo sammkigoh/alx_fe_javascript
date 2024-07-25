@@ -8,6 +8,7 @@ let quotes = JSON.parse(localStorage.getItem(quotesKey)) || [
     {text: "Your time is limited, don't wast it living someone else's life.", category: "Inspiration."}
 ];
 const lastFilterKey = 'lastFilter';
+const serverUrl = 'https://jsonplaceholder.typicode.com/posts';
 
 //referencing the DOM elements 
 const quoteDisplay = document.getElementById ('quoteDisplay');
@@ -145,6 +146,35 @@ function importFromJsonFile(event) {
 if (importFile) {
     importFile.addEventListener('change', importFromJsonFile);
 }
+//sync with server
+
+function syncWithServer(newQuote) {
+    fetch(serverUrl, {
+        method: 'POST',
+        body: JSON.stringify(newQuote),
+        headers: {'Content-Type': 'application/json'}
+    }). then(response.json())
+    .then (data => console.log('Data synced with server;', data))
+    .catch(error => console.error('Error syncing with server:', error));
+}
+
+//fetch new quotes from server time to time
+
+function fetchNewQuotes() {
+    fetch(serverUrl)
+    .then(response => response.json())
+    .then(serverQuotes => {
+        //resolving conflicts by using server data
+        const serverQuoteIds = new Set(serverQuotes.map(q => q.id));
+        quotes = quotes.filter(q => !serverQuoteIds.has(q.id)).concat(serverQuotes);
+        saveQuotes();
+        console.log('Local data updated with server data');
+      })
+      .catch(error => console.error('Error fetching new quotes:', error));
+    }
+
+// Periodically fetch new quotes from the server
+  setInterval(fetchNewQuotes, 60000); // Fetch every 60 seconds
 //initializing the category filter and display the quotes 
 populateCategories();
 });
